@@ -1,5 +1,7 @@
 import googlemaps
 import polyline
+import requests
+from bs4 import BeautifulSoup
 from client import apikey
 
 gmaps = googlemaps.Client(key=apikey)
@@ -37,7 +39,6 @@ def get_gas_stop(directions, distance):
         return "You Don't Need to Fuel Up During This Trip!"
 
     sum = 0
-
     for i in steps:
         if sum + i['distance']['value'] > distance:
             break
@@ -67,3 +68,22 @@ def get_gas_stations(point, radius):
     for i in gas_stations:
         addresses.append(i['vicinity'])
     return addresses
+
+
+# Googles the address of a gas station and returns the link to its GasBuddy page.
+def google_scrape(address):
+    address = address.replace(" ", "+")
+    address = address + '+gasbuddy'
+
+    url = 'https://google.com/search?q=' + address
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+
+    search = soup.find('div', class_='kCrYT')
+    link = search.a['href']
+    index = link.find('&')
+    link = link[7:index]
+    return link
+
+
+print(google_scrape('843 Taylor Road, Montgomery, Alabama'))
