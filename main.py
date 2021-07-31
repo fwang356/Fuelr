@@ -85,5 +85,18 @@ def google_scrape(address):
     link = link[7:index]
     return link
 
+# TODO: Eric can u return it as a dictionary {'address': address, 'price': price}
+def gasbuddy_scrape(link, address, gas_type):
+    pass
 
-print(google_scrape('843 Taylor Road, Montgomery, Alabama'))
+
+# Returns prices of gas stations from cheapest to most expensive.
+def get_prices(addresses):
+    prices = []
+    for address in addresses:
+        link = google_scrape(address)
+        price = gasbuddy_scrape(link)
+        prices.append(price)
+    
+    sorted_prices = sorted(prices, key= lambda k: k['price'])
+    return sorted_prices
