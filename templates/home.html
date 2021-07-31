@@ -6,7 +6,28 @@
 {% block body%}
 
 <div style='text-align: center;'>
-    <h1 id='welcome'>Welcome to </h1>
+    <h1 id='welcome'>
+        Welcome to 
+        
+    </h1>
+    <h2>
+        Plan Your Trip's Gas Stops!
+    </h2>
+    <div class="container">
+        <div class="wrapper">
+            <form class='form-inline' method='POST'>
+                <input type="text" method = 'POST' placeholder="Starting Location" autocomplete="off">
+                <div class="search-btn">
+                    <button><i method = 'POST' class="fa fa-search"></i></button>
+                </div>
+
+                <input type="text" method = 'POST' placeholder="Ending Location" autocomplete="off">
+                <div class="search-btn">
+                    <button><i method = 'POST' action="/search/" class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
     <form action="/" method='POST'>
     <button action='/' type="submit", class="btn btn-custom">
         Continue

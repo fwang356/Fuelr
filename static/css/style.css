@@ -1,6 +1,6 @@
 head, body, html {
     color: #3b0f01;
-    background-color: seashell;
+    background-color: snow;
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 300;
     scroll-behavior: smooth;
@@ -9,8 +9,12 @@ head, body, html {
 h1 {
     font-size: 100px;
     font-weight: 300;
-    padding-top: 10%;
-    padding-bottom: 5%;
+    padding-top: 7.5%;
+    padding-bottom: 1%;
+}
+
+h2 {
+    padding-bottom: 3%;
 }
 
 h1#welcome::after {
@@ -21,7 +25,7 @@ h1#welcome::after {
 .btn-custom {
     background-color: #ad2b07;
     border-color: #ad2b07;
-    color: seashell;
+    color: snow;
     border-radius: 20px;
     width: 12%;
     font-size: 24px;
@@ -29,4 +33,62 @@ h1#welcome::after {
 
 .btn-custom:hover {
     color: #3b0f01;
+}
+
+.form-inline {
+    flex-flow: row wrap;
+    display: flex;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    margin: 0 auto;
+    background: snow;
+    border-radius: 20px;
+    position: relative;
+    width: 100%;
+    padding-bottom: 10%;
+}
+
+input {
+    border: none;
+    height: 50px;
+    border-radius: 20px;
+    padding: 0px 40px 0px 10px;
+    font-size: 18px;
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.66);
+    background-color: snow;
+    color: #3b0f01;
+    width: 30%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+  
+input:focus {
+    outline: none;
+}
+  
+.search-btn button{
+    position: absolute;
+    border: none;
+    background: none;
+    top: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+    width: 50px;
+}
+  
+.search-btn button:focus {
+    outline: none;
+}
+  
+.search-btn button i {
+    width: 100%;
+    color: #242336;
+    line-height: 50px;
+    font-size: 22px;
 }
