@@ -85,18 +85,37 @@ def google_scrape(address):
     link = link[7:index]
     return link
 
-# TODO: Eric can u return it as a dictionary {'address': address, 'price': price}
+# TODO: Eric can u return it as a dictionary
+# Like {'address': address, 'price': price, 'rating': rating}
+# Also check if the recommended stations are already in the list of addresses
+# So we don't have duplicates
 def gasbuddy_scrape(link, address, gas_type):
     pass
 
 
-# Returns prices of gas stations from cheapest to most expensive.
-def get_prices(addresses):
-    prices = []
+# Returns gas stations ranked from most optimal to least.
+def sort(addresses):
+    info = []
+    
     for address in addresses:
         link = google_scrape(address)
-        price = gasbuddy_scrape(link)
-        prices.append(price)
+        if 'https://gasbuddy.com/station/' in link:
+            price = gasbuddy_scrape(link)
+            info.append(price)
     
-    sorted_prices = sorted(prices, key= lambda k: k['price'])
-    return sorted_prices
+    sorted_prices = sorted(info, key= lambda k: k['price'])
+    sorted_rating = sorted(info, reverse= True, key= lambda k: k['rating'])
+    stations = []
+
+    for address in addresses:
+        for i in range(len(sorted_prices)):
+            if sorted_prices[i]['address'] == address['address']:
+                break
+        for j in range(len(sorted_rating)):
+            if sorted_rating[j]['address'] == address['address']:
+                break
+        item = {'station': address, 'index': 2 * i + j}
+        stations.append(item)
+    
+    sorted_stations = sorted(stations, key= lambda k: k['index'])
+    return sorted_stations
