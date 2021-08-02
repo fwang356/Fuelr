@@ -26,7 +26,9 @@ def get_distance(start, end):
 
 # Returns the distance along the route at which to search for a gas station.
 def get_stop_distance(range):
-    return range - 50
+    miles = range - 50
+    meters = miles * 1000 / 0.62137119
+    return meters
 
 
 # Returns the longitude and latitude of where to search for a gas station.
