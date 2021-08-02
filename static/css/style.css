@@ -1,43 +1,50 @@
 head, body, html {
     color: #3b0f01;
-    background-color: snow;
+    background-color: white;
     font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     scroll-behavior: smooth;
+}
+
+.jumbotron {
+    max-height: 35%;
+    padding-top: 0%;
+    color: black;
+    text-align: center;
+    background-color: #fd5000c4;
+    padding-bottom: 3%;
 }
 
 h1 {
     font-size: 100px;
-    font-weight: 300;
-    padding-top: 7.5%;
+    padding-top: 5%;
     padding-bottom: 1%;
 }
 
 h2 {
-    padding-bottom: 3%;
+    padding-bottom: 1%;
+    color: #fd5000c4;
 }
 
-h1#welcome::after {
-    content: 'Fuelr';
-    color: #ad2b07;
+.lead {
+    font-size: 24px;
 }
 
 .btn-custom {
-    background-color: #ad2b07;
-    border-color: #ad2b07;
-    color: snow;
-    border-radius: 20px;
+    border-color: #fd5000c4;
+    color: #fd5000c4;
+    border-radius: 10px;
     width: 12%;
     font-size: 24px;
 }
 
 .btn-custom:hover {
-    color: #3b0f01;
+    background-color: #fd5000c4;
+    color: white;
 }
 
 .form-inline {
     flex-flow: row wrap;
-    display: flex;
     position: relative;
     display: flex;
     justify-content: center;
@@ -45,50 +52,32 @@ h1#welcome::after {
 
 .wrapper {
     margin: 0 auto;
-    background: snow;
+    background: white;
     border-radius: 20px;
     position: relative;
     width: 100%;
-    padding-bottom: 10%;
+    padding-bottom: 5%;
 }
 
 input {
-    border: none;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 0px 40px 0px 10px;
     font-size: 18px;
-    box-shadow: 0px 1px 4px rgba(0,0,0,0.66);
-    background-color: snow;
-    color: #3b0f01;
+    background-color: white;
+    color: #fd5000c4;
     width: 30%;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border: 1px solid black;
+}
+
+input::placeholder {
+    color: #aaa;
+    font-weight: 400;
 }
   
 input:focus {
     outline: none;
 }
   
-.search-btn button{
-    position: absolute;
-    border: none;
-    background: none;
-    top: 0;
-    right: 0;
-    height: 50px;
-    line-height: 50px;
-    padding: 0;
-    width: 50px;
-}
-  
-.search-btn button:focus {
-    outline: none;
-}
-  
-.search-btn button i {
-    width: 100%;
-    color: #242336;
-    line-height: 50px;
-    font-size: 22px;
-}

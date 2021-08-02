@@ -24,10 +24,9 @@ def get_distance(start, end):
     return directions[0]['legs'][0]['distance']['value']
 
 
-# TODO: Determine user inputs and calculate where to search for a gas station.
 # Returns the distance along the route at which to search for a gas station.
-def get_stop_distance(mpg, other_user_inputs_idk_what_yet):
-    pass
+def get_stop_distance(range):
+    return range - 50
 
 
 # Returns the longitude and latitude of where to search for a gas station.

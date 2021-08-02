@@ -5,34 +5,40 @@
 
 {% block body%}
 
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 style="color: white">Fuelr</h1>
+        <p style="color: white" class="lead">Find the Best Gas Stops for Your Trip!</p>
+    </div>
+</div>
+
 <div style='text-align: center;'>
-    <h1 id='welcome'>
-        Welcome to 
-        
-    </h1>
     <h2>
-        Plan Your Trip's Gas Stops!
+        Enter Your Trip and Vehicle Info to Plan Your Gas Stops!
     </h2>
+    <br>
     <div class="container">
         <div class="wrapper">
             <form class='form-inline' method='POST'>
                 <input type="text" method = 'POST' placeholder="Starting Location" autocomplete="off">
-                <div class="search-btn">
-                    <button><i method = 'POST' class="fa fa-search"></i></button>
-                </div>
 
+                <input type="text" method = 'POST' placeholder="Max Range (Miles)" autocomplete="off">
+            </form>
+            <br>
+            <br>
+            <form class='form-inline' method='POST'>
                 <input type="text" method = 'POST' placeholder="Ending Location" autocomplete="off">
-                <div class="search-btn">
-                    <button><i method = 'POST' action="/search/" class="fa fa-search"></i></button>
-                </div>
+
+                <input type="text" method = 'POST' placeholder="Fuel Type" autocomplete="off">
             </form>
         </div>
     </div>
+    <br>
     <form action="/" method='POST'>
-    <button action='/' type="submit", class="btn btn-custom">
-        Continue
-    </button>
-</form>
+        <button action='/' type="submit", class="btn btn-custom">
+            Calculate
+        </button>
+    </form>
 </div>
 
 
