@@ -102,18 +102,16 @@ def sort(addresses):
             price = gasbuddy_scrape(link)
             info.append(price)
     
-    sorted_prices = sorted(info, key= lambda k: k['price'])
-    sorted_rating = sorted(info, reverse= True, key= lambda k: k['rating'])
     stations = []
 
     for address in addresses:
-        for i in range(len(sorted_prices)):
-            if sorted_prices[i]['address'] == address['address']:
-                break
-        for j in range(len(sorted_rating)):
-            if sorted_rating[j]['address'] == address['address']:
-                break
-        item = {'station': address, 'index': 2 * i + j}
+        for i in range(len(info)):
+            if info[i]['address'] == address['address']:
+                price = info[i]['price']
+        for j in range(len(info)):
+            if info[j]['address'] == address['address']:
+                rating = info[j]['rating']
+        item = {'station': address, 'index': 3 * price - rating}
         stations.append(item)
     
     sorted_stations = sorted(stations, key= lambda k: k['index'])
