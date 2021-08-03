@@ -36,18 +36,13 @@ h2 {
     border-radius: 10px;
     width: 12%;
     font-size: 24px;
+    display: inline-block;
+    word-wrap: break-word;
 }
 
 .btn-custom:hover {
     background-color: #fd5000c4;
     color: white;
-}
-
-.form-inline {
-    flex-flow: row wrap;
-    position: relative;
-    display: flex;
-    justify-content: center;
 }
 
 .wrapper {
@@ -56,7 +51,7 @@ h2 {
     border-radius: 20px;
     position: relative;
     width: 100%;
-    padding-bottom: 5%;
+    padding-bottom: 2%;
 }
 
 input {
@@ -66,18 +61,46 @@ input {
     font-size: 18px;
     background-color: white;
     color: #fd5000c4;
-    width: 30%;
-    margin-left: 2%;
-    margin-right: 2%;
+    width: 60%;
     border: 1px solid black;
+}
+
+.btn-dropdown {
+    border-radius: 10px;
+    padding: 0px 40px 0px 10px;
+    background-color: white;
+    color: #aaa;
+    border: 1px solid black;
+    height: 50px;
+    text-align: left;
+    width: 30%;
+    font-size: 18px;
 }
 
 input::placeholder {
     color: #aaa;
     font-weight: 400;
+    font-size: 18px;
 }
   
 input:focus {
     outline: none;
 }
-  
+
+.form-group {
+    text-align: left;
+}
+
+.form-group#left {
+    text-align: right;
+}
+
+.dropdown-toggle::after {
+    margin-left: 37%;
+    color: #fd5000c4;
+}
+
+.dropdown-item {
+    color: #fd5000c4;
+    font-size: 18px;
+}
