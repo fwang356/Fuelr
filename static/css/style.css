@@ -36,8 +36,7 @@ h2 {
     border-radius: 10px;
     width: 12%;
     font-size: 24px;
-    display: inline-block;
-    word-wrap: break-word;
+    white-space: normal;
 }
 
 .btn-custom:hover {
@@ -83,7 +82,13 @@ input {
 
 .dropdown-toggle {
     width: 7%; 
+    justify-content: center;
     color: #fd5000c4;
+}
+
+.dropdown-toggle::after {
+    text-align: center;
+    margin-left: calc(50% - 0.3em);
 }
 
 input::placeholder {
@@ -107,6 +112,20 @@ input:focus {
 .dropdown-item {
     color: #fd5000c4;
     font-size: 18px;
+    white-space: normal;
+}
+
+.dropdown-item#autocomplete {
+    border-radius: 10px;
+}
+
+.dropdown-item:hover {
+    background-color: #ececec;
+}
+
+.dropdown-item:active {
+    color: #fd5000c4;
+    outline: none;
 }
 
 .results {
@@ -141,9 +160,7 @@ input:focus {
     padding: 10px;
 }
   
-.results ul li:hover {
-    background: #ececec
-}
+
 
 .results-end {
     padding: 0px;
@@ -176,7 +193,11 @@ input:focus {
 .show .results-end {
     padding: 10px;
 }
-  
-.results-end ul li:hover {
-    background: #ececec
+
+.map {
+    padding-top: 15%;
+    width: 100%;
+    height: 700px;
+    border-radius: 10px;
 }
+  

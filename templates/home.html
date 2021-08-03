@@ -21,8 +21,8 @@
         <div class="wrapper">
             <div class='row'>
                 <div class='col-6'>
-                    <form class='form-group' id='left' method='POST'>
-                        <input class= 'search' type="text" method='POST' placeholder="Starting Location" id='search' autocomplete="off">
+                    <form class='form-group' id='left'>
+                        <input class='search' type="text" placeholder="Starting Location" id='search' autocomplete="off">
                         <div class="results">
                             <ul>
                             </ul>
@@ -30,7 +30,7 @@
                     </form>
                 </div>
                 <div class='col-6'>
-                    <form class='form-group' method='POST'>
+                    <form class='form-group'>
                         <input id="range" type="number" method='POST' placeholder="Max Range (Miles)" autocomplete="off">
                     </form>
                 </div>
@@ -39,8 +39,8 @@
         <div class='wrapper-end'>
             <div class='row'>
                 <div class='col-6'>
-                    <form class='form-group' id='left' method='POST'>
-                        <input type="text" method='POST' placeholder="Ending Location" id='search-end' autocomplete="off">
+                    <form class='form-group' id='left'>
+                        <input class='search-end' type="text" placeholder="Ending Location" id='search-end' autocomplete="off">
                         <div class="results-end">
                             <ul>
                             </ul>
@@ -48,7 +48,7 @@
                     </form>
                 </div>
                 <div class='col-6'>
-                    <form class='form-group' method='POST'>
+                    <form class='form-group'>
                         <input class="btn btn-dropdown btn-lg" placeholder="Gas Type" disabled>
                         </input>
                         <button type="button" class="btn btn-lg btn-dropdown dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,11 +66,22 @@
         </div>
     </div>
     <br>
-    <form action="/" method='POST'>
-        <button action='/' type="submit", class="btn btn-custom">
+    <form>
+        <button type="button" class="btn btn-custom" id="calculate">
             Calculate
         </button>
     </form>
 </div>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="map" id="map"></div>
+</div>
+
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNMEWQATMF1WX6nNvflDEYVpiw_LaWWq8&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 {%endblock%}
