@@ -22,7 +22,7 @@
             <div class='row'>
                 <div class='col-6'>
                     <form class='form-group' id='left' method='POST'>
-                        <input type="text" method='POST' placeholder="Starting Location" id='search' autocomplete="off">
+                        <input class= 'search' type="text" method='POST' placeholder="Starting Location" id='search' autocomplete="off">
                         <div class="results">
                             <ul>
                             </ul>
@@ -49,8 +49,10 @@
                 </div>
                 <div class='col-6'>
                     <form class='form-group' method='POST'>
-                        <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Gas Type
+                        <input class="btn btn-dropdown btn-lg" placeholder="Gas Type" disabled>
+                        </input>
+                        <button type="button" class="btn btn-lg btn-dropdown dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <button class="dropdown-item" type="button">Regular</button>

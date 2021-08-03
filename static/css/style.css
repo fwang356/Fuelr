@@ -77,6 +77,15 @@ input {
     font-size: 18px;
 }
 
+.btn-dropdown:disabled {
+    opacity: 1;
+}
+
+.dropdown-toggle {
+    width: 7%; 
+    color: #fd5000c4;
+}
+
 input::placeholder {
     color: #aaa;
     font-weight: 400;
@@ -93,11 +102,6 @@ input:focus {
 
 .form-group#left {
     text-align: right;
-}
-
-.dropdown-toggle::after {
-    margin-left: 37%;
-    color: #fd5000c4;
 }
 
 .dropdown-item {
@@ -117,7 +121,7 @@ input:focus {
 
 .results ul li {
     list-style: none;
-    border-radius: 3px;
+    border-radius: 10px;
     opacity: 0;
     display: none;
     padding: 8px 12px;

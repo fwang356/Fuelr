@@ -118,3 +118,12 @@ def sort(addresses):
     
     sorted_stations = sorted(stations, key= lambda k: k['index'])
     return sorted_stations
+
+
+# Searches for a placed based on user input query.
+def search(query):
+    autocomplete = gmaps.places_autocomplete_query(query)
+    results = []
+    for result in autocomplete:
+        results.append(result['description'])
+    return results
