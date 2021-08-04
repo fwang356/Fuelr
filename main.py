@@ -85,12 +85,24 @@ def google_scrape(address):
     link = link[7:index]
     return link
 
-# TODO: Eric can u return it as a dictionary
-# Like {'address': address, 'price': price, 'rating': rating}
-# Also check if the recommended stations are already in the list of addresses
-# So we don't have duplicates
-def gasbuddy_scrape(link, address, gas_type):
-    pass
+# Given a gas station link (link) and a desired gas type (gas_type), returns the price of the gas and the rating of the station
+def gasbuddy_scrape(link, gas_type):
+    page = requests.get(link, headers={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62'})
+    soup = BeautifulSoup(page.content, 'html.parser')
+    
+    price_elements = soup.find('div', class_='carousel__scrollContainer___hDjMb').children
+
+    price = None
+
+    for element in price_elements:
+        type = element.find('span', class_='text__fluid___1X7fO').string
+
+        if type == gas_type and price != '- - -':
+            price = float(element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string.strip('$'))
+
+    rating = soup.find('span', class_='ReviewPanel-module__averageRating___3KmW2').string 
+    
+    return {'rating': rating, 'price': price}
 
 
 # Returns gas stations ranked from most optimal to least.
