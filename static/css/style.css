@@ -1,94 +1,203 @@
 head, body, html {
     color: #3b0f01;
-    background-color: snow;
+    background-color: white;
     font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     scroll-behavior: smooth;
+}
+
+.jumbotron {
+    max-height: 35%;
+    padding-top: 0%;
+    color: black;
+    text-align: center;
+    background-color: #fd5000c4;
+    padding-bottom: 3%;
 }
 
 h1 {
     font-size: 100px;
-    font-weight: 300;
-    padding-top: 7.5%;
+    padding-top: 5%;
     padding-bottom: 1%;
 }
 
 h2 {
-    padding-bottom: 3%;
+    padding-bottom: 1%;
+    color: #fd5000c4;
 }
 
-h1#welcome::after {
-    content: 'Fuelr';
-    color: #ad2b07;
-}
-
-.btn-custom {
-    background-color: #ad2b07;
-    border-color: #ad2b07;
-    color: snow;
-    border-radius: 20px;
-    width: 12%;
+.lead {
     font-size: 24px;
 }
 
+.btn-custom {
+    border-color: #fd5000c4;
+    color: #fd5000c4;
+    border-radius: 10px;
+    width: 12%;
+    font-size: 24px;
+    white-space: normal;
+}
+
 .btn-custom:hover {
-    color: #3b0f01;
+    background-color: #fd5000c4;
+    color: white;
 }
 
-.form-inline {
-    flex-flow: row wrap;
-    display: flex;
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-.wrapper {
+.wrapper, .wrapper-end {
     margin: 0 auto;
-    background: snow;
+    background: white;
     border-radius: 20px;
     position: relative;
     width: 100%;
-    padding-bottom: 10%;
+    padding-bottom: 1%;
 }
 
 input {
-    border: none;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 0px 40px 0px 10px;
     font-size: 18px;
-    box-shadow: 0px 1px 4px rgba(0,0,0,0.66);
-    background-color: snow;
-    color: #3b0f01;
+    background-color: white;
+    color: #fd5000c4;
+    width: 60%;
+    border: 1px solid black;
+}
+
+.btn-dropdown {
+    border-radius: 10px;
+    padding: 0px 40px 0px 10px;
+    background-color: white;
+    color: #aaa;
+    border: 1px solid black;
+    height: 50px;
+    text-align: left;
     width: 30%;
-    margin-left: 5%;
-    margin-right: 5%;
+    font-size: 18px;
+}
+
+.btn-dropdown:disabled {
+    opacity: 1;
+}
+
+.dropdown-toggle {
+    width: 7%; 
+    justify-content: center;
+    color: #fd5000c4;
+}
+
+.dropdown-toggle::after {
+    text-align: center;
+    margin-left: calc(50% - 0.3em);
+}
+
+input::placeholder {
+    color: #aaa;
+    font-weight: 400;
+    font-size: 18px;
 }
   
 input:focus {
     outline: none;
 }
-  
-.search-btn button{
-    position: absolute;
-    border: none;
-    background: none;
-    top: 0;
-    right: 0;
-    height: 50px;
-    line-height: 50px;
-    padding: 0;
-    width: 50px;
+
+.form-group {
+    text-align: left;
 }
-  
-.search-btn button:focus {
+
+.form-group#left {
+    text-align: right;
+}
+
+.dropdown-item {
+    color: #fd5000c4;
+    font-size: 18px;
+    white-space: normal;
+}
+
+.dropdown-item#autocomplete {
+    border-radius: 10px;
+}
+
+.dropdown-item:hover {
+    background-color: #ececec;
+}
+
+.dropdown-item:active {
+    color: #fd5000c4;
     outline: none;
 }
-  
-.search-btn button i {
-    width: 100%;
-    color: #242336;
-    line-height: 50px;
-    font-size: 22px;
+
+.results {
+    padding: 0px;
 }
+  
+.results ul {
+    margin: 0;
+    padding: 0;
+    justify-content: right;
+}
+
+.results ul li {
+    list-style: none;
+    border-radius: 10px;
+    opacity: 0;
+    display: none;
+    padding: 8px 12px;
+    transition: all .5s linear;
+    color: #fd5000c4;
+    width: 60%;
+    margin: auto;
+    float: right;
+}
+  
+.show .results ul li {
+    opacity: 1;
+    display: block;
+}
+  
+.show .results {
+    padding: 10px;
+}
+  
+
+
+.results-end {
+    padding: 0px;
+}
+  
+.results-end ul {
+    margin: 0;
+    padding: 0;
+    justify-content: right;
+}
+
+.results-end ul li {
+    list-style: none;
+    border-radius: 3px;
+    opacity: 0;
+    display: none;
+    padding: 8px 12px;
+    transition: all .5s linear;
+    color: #fd5000c4;
+    width: 60%;
+    margin: auto;
+    float: right;
+}
+  
+.show .results-end ul li {
+    opacity: 1;
+    display: block;
+}
+  
+.show .results-end {
+    padding: 10px;
+}
+
+.map {
+    padding-top: 15%;
+    width: 100%;
+    height: 700px;
+    border-radius: 10px;
+}
+  

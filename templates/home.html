@@ -5,35 +5,83 @@
 
 {% block body%}
 
-<div style='text-align: center;'>
-    <h1 id='welcome'>
-        Welcome to 
-        
-    </h1>
-    <h2>
-        Plan Your Trip's Gas Stops!
-    </h2>
+<div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <div class="wrapper">
-            <form class='form-inline' method='POST'>
-                <input type="text" method = 'POST' placeholder="Starting Location" autocomplete="off">
-                <div class="search-btn">
-                    <button><i method = 'POST' class="fa fa-search"></i></button>
-                </div>
-
-                <input type="text" method = 'POST' placeholder="Ending Location" autocomplete="off">
-                <div class="search-btn">
-                    <button><i method = 'POST' action="/search/" class="fa fa-search"></i></button>
-                </div>
-            </form>
-        </div>
+        <h1 style="color: white">Fuelr</h1>
+        <p style="color: white" class="lead">Find the Best Gas Stops for Your Trip!</p>
     </div>
-    <form action="/" method='POST'>
-    <button action='/' type="submit", class="btn btn-custom">
-        Continue
-    </button>
-</form>
 </div>
 
+<div style='text-align: center;'>
+    <h2>
+        Enter Your Trip and Vehicle Info to Plan Your Gas Stops!
+    </h2>
+    <br>
+    <div class="container">
+        <div class="wrapper">
+            <div class='row'>
+                <div class='col-6'>
+                    <form class='form-group' id='left'>
+                        <input class='search' type="text" placeholder="Starting Location" id='search' autocomplete="off">
+                        <div class="results">
+                            <ul>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <div class='col-6'>
+                    <form class='form-group'>
+                        <input id="range" type="number" method='POST' placeholder="Max Range (Miles)" autocomplete="off">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class='wrapper-end'>
+            <div class='row'>
+                <div class='col-6'>
+                    <form class='form-group' id='left'>
+                        <input class='search-end' type="text" placeholder="Ending Location" id='search-end' autocomplete="off">
+                        <div class="results-end">
+                            <ul>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <div class='col-6'>
+                    <form class='form-group'>
+                        <input class="btn btn-dropdown btn-lg" placeholder="Gas Type" disabled>
+                        </input>
+                        <button type="button" class="btn btn-lg btn-dropdown dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <button class="dropdown-item" type="button">Regular</button>
+                            <button class="dropdown-item" type="button">Midgrade</button>
+                            <button class="dropdown-item" type="button">Premium</button>
+                            <button class="dropdown-item" type="button">Diesel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <form>
+        <button type="button" class="btn btn-custom" id="calculate">
+            Calculate
+        </button>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="map" id="map"></div>
+</div>
 
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNMEWQATMF1WX6nNvflDEYVpiw_LaWWq8&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 {%endblock%}

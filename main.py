@@ -24,10 +24,11 @@ def get_distance(start, end):
     return directions[0]['legs'][0]['distance']['value']
 
 
-# TODO: Determine user inputs and calculate where to search for a gas station.
 # Returns the distance along the route at which to search for a gas station.
-def get_stop_distance(mpg, other_user_inputs_idk_what_yet):
-    pass
+def get_stop_distance(range):
+    miles = range - 50
+    meters = miles * 1000 / 0.62137119
+    return meters
 
 
 # Returns the longitude and latitude of where to search for a gas station.
@@ -115,19 +116,26 @@ def sort(addresses):
             price = gasbuddy_scrape(link)
             info.append(price)
     
-    sorted_prices = sorted(info, key= lambda k: k['price'])
-    sorted_rating = sorted(info, reverse= True, key= lambda k: k['rating'])
     stations = []
 
     for address in addresses:
-        for i in range(len(sorted_prices)):
-            if sorted_prices[i]['address'] == address['address']:
-                break
-        for j in range(len(sorted_rating)):
-            if sorted_rating[j]['address'] == address['address']:
-                break
-        item = {'station': address, 'index': 2 * i + j}
+        for i in range(len(info)):
+            if info[i]['address'] == address['address']:
+                price = info[i]['price']
+        for j in range(len(info)):
+            if info[j]['address'] == address['address']:
+                rating = info[j]['rating']
+        item = {'station': address, 'index': 3 * price - rating}
         stations.append(item)
     
     sorted_stations = sorted(stations, key= lambda k: k['index'])
     return sorted_stations
+
+
+# Searches for a placed based on user input query.
+def search(query):
+    autocomplete = gmaps.places_autocomplete_query(query)
+    results = []
+    for result in autocomplete:
+        results.append(result['description'])
+    return results
