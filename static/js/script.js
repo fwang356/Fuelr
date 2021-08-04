@@ -38,10 +38,8 @@ $(document).ready(function() {
         let input = searchInputEnd.value;
 
         if (input.length > 0) {
-            console.log(input.length)
             $.post("/autocomplete", {"input": input})
                 .then(function (response) {
-                    console.log(response);
                     results = response.filter((item) => {
                         return item.toLowerCase().includes(input.toLowerCase());
                     });
@@ -104,25 +102,51 @@ $(document).ready(function() {
 // TODO: Send start/end to Flask server and get directions.
 // Add gas stations as markers.
 $(document).ready(function() {
-    const calculate = document.getElementById("calculate");
 
     calculate.addEventListener('click', () => {
-        initMap();
+        if (document.getElementById("search").value == '' || document.getElementById("search-end").value == ''
+            || document.getElementById("range").value == '' || document.getElementById("gas-type").firstChild == null) {
+            window.alert("Please fill out the forms!");
+        } else {
+            initMap();
+        }
     })
 
     function initMap() {
-        const start = { lat: -25.344, lng: 131.036 };
-        const end = {};
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
 
         const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 4,
-            center: start,
+            zoom: 6,
+            center: { lat: 41.85, lng: -87.65 },
         });
+        directionsRenderer.setMap(map);
 
-        const marker = new google.maps.Marker({
-            position: start,
-            map: map,
-        });
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
     }
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        directionsService
+        .route({
+            origin: document.getElementById("search").value,
+            destination: document.getElementById("search-end").value,
+            travelMode: google.maps.TravelMode.DRIVING,
+        })
+        .then((response) => {
+            directionsRenderer.setDirections(response);
+            const summaryPanel = document.getElementById("directions");
+            summaryPanel.innerHTML = "";
+        })
+    }
+        /*
+        $.post("/directions", {"start": searchInput, "end": searchInputEnd})
+                .then(function (response) {
+                    const directions = response;
+                    console.log(directions);
+                    directionsRenderer.setDirections(directions);
+                })
+        */
+
+
 })
 
