@@ -201,3 +201,6 @@ input:focus {
     border-radius: 10px;
 }
   
+#directions-panel {
+    margin-top: 10px;
+  }
