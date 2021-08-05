@@ -9,6 +9,8 @@ $(function(){
 $(document).ready(function() {
     const searchInput = document.getElementById('search');
     const searchInputEnd = document.getElementById('search-end');
+    const rangeInput = document.getElementById('range');
+    const gasType = document.getElementById('gas-type');
     const searchWrapper = document.querySelector('.wrapper');
     const searchWrapperEnd = document.querySelector('.wrapper-end')
     const resultsWrapper = document.querySelector('.results');
@@ -32,7 +34,6 @@ $(document).ready(function() {
     });
 
     
-
     searchInputEnd.addEventListener('keyup', () => {
         let results = [];
         let input = searchInputEnd.value;
@@ -97,11 +98,6 @@ $(document).ready(function() {
             });
         });
     }
-});
-
-// TODO: Send start/end to Flask server and get directions.
-// Add gas stations as markers.
-$(document).ready(function() {
 
     calculate.addEventListener('click', () => {
         const directionsService = new google.maps.DirectionsService();
@@ -125,15 +121,18 @@ $(document).ready(function() {
             center: { lat: 41.85, lng: -87.65 },
         });
         directionsRenderer.setMap(map);
-
+        $.post("/gas-station", {"start": searchInput.value, "end": searchInputEnd.value, "range": rangeInput.value, "gas_type": gasType.value})
+            .then(function (response) {
+                console.log(repsonse);
+            })
         calculateAndDisplayRoute(directionsService, directionsRenderer);
     }
 
     function calculateAndDisplayRoute(directionsService, directionsRenderer) {
         directionsService
         .route({
-            origin: document.getElementById("search").value,
-            destination: document.getElementById("search-end").value,
+            origin: searchInput.value,
+            destination: searchInputEnd.value,
             travelMode: google.maps.TravelMode.DRIVING,
         })
         .then((response) => {
