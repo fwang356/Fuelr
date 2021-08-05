@@ -104,18 +104,22 @@ $(document).ready(function() {
 $(document).ready(function() {
 
     calculate.addEventListener('click', () => {
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
         if (document.getElementById("search").value == '' || document.getElementById("search-end").value == ''
             || document.getElementById("range").value == '' || document.getElementById("gas-type").firstChild == null) {
             window.alert("Please fill out the forms!");
-        } else {
+        }else {
             initMap();
         }
+        
     })
 
     function initMap() {
         const directionsService = new google.maps.DirectionsService();
         const directionsRenderer = new google.maps.DirectionsRenderer();
 
+        document.getElementById("map").style.height = '700px';
         const map = new google.maps.Map(document.getElementById("map"), {
             zoom: 6,
             center: { lat: 41.85, lng: -87.65 },
@@ -138,15 +142,5 @@ $(document).ready(function() {
             summaryPanel.innerHTML = "";
         })
     }
-        /*
-        $.post("/directions", {"start": searchInput, "end": searchInputEnd})
-                .then(function (response) {
-                    const directions = response;
-                    console.log(directions);
-                    directionsRenderer.setDirections(directions);
-                })
-        */
-
-
 })
 

@@ -134,7 +134,7 @@ def sort(addresses):
 
 # Searches for a placed based on user input query.
 def search(query):
-    autocomplete = gmaps.places_autocomplete_query(query)
+    autocomplete = gmaps.places_autocomplete(query, components={'country': ['US']})
     results = []
     for result in autocomplete:
         results.append(result['description'])
