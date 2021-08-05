@@ -143,8 +143,11 @@ def gasbuddy_scrape(address, link, gas_type):
     for element in price_elements:
         type = element.find('span', class_='text__fluid___1X7fO').string
 
-        if type == gas_type and price != '- - -':
-            price = float(element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string.strip('$'))
+        if type == gas_type:
+            try:
+                price = float(element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string.strip('$'))
+            except ValueError:
+                price = None
 
     rating = soup.find('span', class_='ReviewPanel-module__averageRating___3KmW2').string 
     
