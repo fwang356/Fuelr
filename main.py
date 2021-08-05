@@ -106,6 +106,8 @@ def get_gas_stations(point, radius):
         radius = radius * 1.5
         gas_stations = gmaps.places_nearby(point, radius, type='gas_station')['results']
 
+    gas_stations = gas_stations[0:10]
+
     for i in gas_stations:
         addresses.append(i['vicinity'])
     return addresses
@@ -171,7 +173,7 @@ def sort(addresses, gas_type):
             if info[j]['address'] == address:
                 rating = info[j]['rating']
                 break
-        item = {'station': address, 'price': '$' + str(price), 'rating':str(rating)+"/5", 'index': 3 * price - float(rating)}
+        item = {'position': get_geocode(address), 'station': address, 'price': '$' + str(price), 'rating':str(rating)+"/5", 'index': 3 * price - float(rating)}
         stations.append(item)
     
     sorted_stations = sorted(stations, key= lambda k: k['index'])
