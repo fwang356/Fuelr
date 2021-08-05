@@ -2,7 +2,9 @@ import googlemaps
 import polyline
 import requests
 from bs4 import BeautifulSoup
-from client import apikey
+import os
+
+apikey = os.getenv('key')
 
 gmaps = googlemaps.Client(key=apikey)
 
