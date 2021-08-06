@@ -3,9 +3,9 @@ import polyline
 import requests
 from bs4 import BeautifulSoup
 import os
+import concurrent.futures
 
 apikey = os.getenv('key')
-apikey = 'AIzaSyBNMEWQATMF1WX6nNvflDEYVpiw_LaWWq8'
 
 gmaps = googlemaps.Client(key=apikey)
 
@@ -166,20 +166,30 @@ def gasbuddy_scrape(address, link, gas_type):
     return {'address': address, 'rating': rating, 'price': price}
 
 
+def scrape(address, gas_type):
+    info = []
+    link = google_scrape(address)
+    if 'https://www.gasbuddy.com/station/' in link:
+            price = gasbuddy_scrape(address, link, gas_type)
+            info.append(price)
+    return info
+
+
 # Returns gas stations ranked from most optimal to least.
 def sort(addresses, gas_type):
     info = []
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        future_list = {executor.submit(scrape, address, gas_type) for address in addresses}
     
-    for address in addresses:
-        link = google_scrape(address)
-        if 'https://www.gasbuddy.com/station/' in link:
-            price = gasbuddy_scrape(address, link, gas_type)
-            info.append(price)
-    
+    for i in future_list:
+        info.append(i.result())
+
     stations = []
 
-    for address in info:
-        item = {'position': get_geocode(address['address']), 'station': address['address'],
+    for future in info:
+        for address in future:
+            item = {'position': get_geocode(address['address']), 'station': address['address'],
                 'price': '$' + str(address['price']), 'rating':str(address['rating'])+"/5",
                 'index': 3 * address['price'] - float(address['rating'])}
         stations.append(item)

@@ -108,7 +108,7 @@ $(document).ready(function() {
             $.post("/gas-station", {"start": searchInput.value, "end": searchInputEnd.value, "range": rangeInput.value, "gas_type": gasType.value})
                 .then(function (response) {
                     console.log(response);
-                    if (response == "You Don't Need to Fuel Up for this Trip!") {
+                    if (response == "You Don't Need to Fuel Up for this Trip") {
                         window.alert("You Don't Need to Fuel Up for this Trip!");
                         calculate.innerHTML = "Calculate";
                     } else {
