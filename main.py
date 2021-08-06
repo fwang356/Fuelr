@@ -185,7 +185,7 @@ def scrape(address, gas_type):
 
 # Sends a response every 29 seconds to prevent timeout.
 def send_response():
-    time.sleep(29)
+    time.sleep(20)
     print('im still working')
 
 
