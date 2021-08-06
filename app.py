@@ -28,8 +28,6 @@ def gas_station():
         stop_distance = main.get_stop_distance(int(range_))
         directions = main.get_directions(start, end)
         points = main.get_gas_stop(start, end, stop_distance)
-        if points == "You Don't Need To Fuel Up for this Trip!":
-            return "You Don't Need to Fuel Up for this Trip"
         addresses = []
         for point in points:
             addresses.append(main.get_gas_stations(point, 40233))

@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import concurrent.futures
+import time
 
 apikey = os.getenv('key')
 apikey = 'AIzaSyBNMEWQATMF1WX6nNvflDEYVpiw_LaWWq8'
@@ -34,6 +35,7 @@ def get_stop_distance(range):
     meters = miles * 1000 / 0.62137119
     return meters
 
+
 # Binary search to find point at which to search for a gas station.
 def binary_search(original, points, remainder):
     length = len(points)
@@ -60,7 +62,12 @@ def get_gas_stop(start, end, distance):
     directions = get_directions(start, end)
     total_distance = directions[0]['legs'][0]['distance']['value']
     if total_distance < distance:
-        return "You Don't Need To Fuel Up for this Trip!"
+        geocode = get_geocode(end)
+        lat = geocode['lat']
+        lng = geocode['lng']
+        point = (lat, lng)
+        points.append(point)
+        return points
 
     stop_count = total_distance / distance
     steps = directions[0]['legs'][0]['steps']
@@ -97,7 +104,6 @@ def get_gas_stop(start, end, distance):
         points.append(binary_search(search_array, search_array, remainder))
         sum = difference
         steps = steps[i+1:]
-
     return points
 
 
@@ -106,11 +112,11 @@ def get_gas_stations(point, radius):
     addresses = []
     gas_stations = gmaps.places_nearby(point, radius, type='gas_station')['results']
 
-    while len(gas_stations) < 10:
+    while len(gas_stations) < 5:
         radius = radius * 1.5
         gas_stations = gmaps.places_nearby(point, radius, type='gas_station')['results']
 
-    gas_stations = gas_stations[0:10]
+    gas_stations = gas_stations[0:5]
 
     for i in gas_stations:
         addresses.append(i['vicinity'])
@@ -167,6 +173,7 @@ def gasbuddy_scrape(address, link, gas_type):
     return {'address': address, 'rating': rating, 'price': price}
 
 
+# Utilizes scrapers and returns price and rating for each address.
 def scrape(address, gas_type):
     info = []
     link = google_scrape(address)
@@ -176,13 +183,19 @@ def scrape(address, gas_type):
     return info
 
 
+# Sends a response every 29 seconds to prevent timeout.
+def send_response():
+    time.sleep(29)
+    print('im still working')
+
+
 # Returns gas stations ranked from most optimal to least.
 def sort(addresses, gas_type):
     info = []
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
         future_list = {executor.submit(scrape, address, gas_type) for address in addresses}
-        print(future_list)
+        a = executor.submit(send_response())
+
     
     for i in future_list:
         info.append(i.result())
@@ -194,7 +207,7 @@ def sort(addresses, gas_type):
             item = {'position': get_geocode(address['address']), 'station': address['address'],
                 'price': '$' + str(address['price']), 'rating':str(address['rating'])+"/5",
                 'index': 3 * address['price'] - float(address['rating'])}
-        stations.append(item)
+            stations.append(item)
     
     sorted_stations = sorted(stations, key= lambda k: k['index'])
     return sorted_stations
