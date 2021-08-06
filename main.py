@@ -162,11 +162,16 @@ def sort(addresses, gas_type):
     
     for address in addresses:
         link = google_scrape(address)
+<<<<<<< HEAD
         if 'https://gasbuddy.com/station/' in link:
             if price != None:
                 price = gasbuddy_scrape(link)
             else:
                 price = 1000
+=======
+        if 'https://www.gasbuddy.com/station/' in link:
+            price = gasbuddy_scrape(address, link, gas_type)
+>>>>>>> bc68b4765aa2777381f3a0963987577808378576
             info.append(price)
     
     stations = []
