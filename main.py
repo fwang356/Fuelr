@@ -192,6 +192,7 @@ def send_response():
 # Returns gas stations ranked from most optimal to least.
 def sort(addresses, gas_type):
     info = []
+    print('im still working')
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
         future_list = {executor.submit(scrape, address, gas_type) for address in addresses}
         a = executor.submit(send_response())
