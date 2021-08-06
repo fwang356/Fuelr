@@ -38,6 +38,7 @@ def gas_station():
         gas_stations = []
 
         for address in addresses:
+            print(address)
             gas_stations.append(main.sort(address, gas_type))
 
         results = []

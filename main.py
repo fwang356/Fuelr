@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import os
 
 apikey = os.getenv('key')
+apikey = 'AIzaSyBNMEWQATMF1WX6nNvflDEYVpiw_LaWWq8'
 
 gmaps = googlemaps.Client(key=apikey)
 
@@ -36,7 +37,7 @@ def get_stop_distance(range):
 def binary_search(original, points, remainder):
     length = len(points)
     index = int(length / 2)
-    if index == 0 or index == 1:
+    if get_distance(points[0], points[length - 1]) < 1610:
         return points[index]
     if get_distance(original[0], points[index]) > remainder:
         if get_distance(original[0], points[index - 1]) < remainder:
@@ -127,12 +128,15 @@ def google_scrape(address):
     for result in search:
         if result.a == None:
             continue
-        elif 'gasbuddy.com' in result.a['href']:
+        elif 'www.gasbuddy.com/station/' in result.a['href']:
             break
-    link = result.a['href']
-    index = link.find('&')
-    link = link[7:index]
-    return link
+    if result.a == None:
+        return 'lol'
+    else:
+        link = result.a['href']
+        index = link.find('&')
+        link = link[7:index]
+        return link
 
 
 # Given a gas station link (link) and a desired gas type (gas_type), returns the price of the gas and the rating of the station
@@ -151,10 +155,14 @@ def gasbuddy_scrape(address, link, gas_type):
             try:
                 price = float(element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string.strip('$'))
             except ValueError:
-                price = None
+                price = 1000
 
-    rating = soup.find('span', class_='ReviewPanel-module__averageRating___3KmW2').string 
-    
+        if type == gas_type:
+            try:
+                rating = soup.find('span', class_='ReviewPanel-module__averageRating___3KmW2').string 
+            except AttributeError:
+                rating = -500
+
     return {'address': address, 'rating': rating, 'price': price}
 
 
@@ -169,16 +177,11 @@ def sort(addresses, gas_type):
             info.append(price)
     
     stations = []
-    for address in addresses:
-        for i in range(len(info)):
-            if info[i]['address'] == address:
-                price = info[i]['price']
-                break
-        for j in range(len(info)):
-            if info[j]['address'] == address:
-                rating = info[j]['rating']
-                break
-        item = {'position': get_geocode(address), 'station': address, 'price': '$' + str(price), 'rating':str(rating)+"/5", 'index': 3 * price - float(rating)}
+
+    for address in info:
+        item = {'position': get_geocode(address['address']), 'station': address['address'],
+                'price': '$' + str(address['price']), 'rating':str(address['rating'])+"/5",
+                'index': 3 * address['price'] - float(address['rating'])}
         stations.append(item)
     
     sorted_stations = sorted(stations, key= lambda k: k['index'])
