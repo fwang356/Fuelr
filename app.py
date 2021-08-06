@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, jsonify
-import os
 import main
 
 app = Flask(__name__)
@@ -32,12 +31,9 @@ def gas_station():
         if points == "You Don't Need To Fuel Up for this Trip!":
             return "You Don't Need to Fuel Up for this Trip"
         addresses = []
-
         for point in points:
             addresses.append(main.get_gas_stations(point, 40233))
-        print("gas_stations:")
         gas_stations = []
-
         for address in addresses:
             gas_stations.append(main.sort(address, gas_type))
 
@@ -45,11 +41,10 @@ def gas_station():
 
         for stop in gas_stations:
             results.append(stop[0])
-        print(results)
 
         results = jsonify(results)
         return results
 
 
 if __name__ == "__main__":
-    app.run(debug= True, host='0.0.0.0', port=os.environ.get('PORT', '5000'))
+    app.run(debug=True)
