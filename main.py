@@ -6,6 +6,7 @@ import os
 import concurrent.futures
 
 apikey = os.getenv('key')
+apikey = 'AIzaSyBNMEWQATMF1WX6nNvflDEYVpiw_LaWWq8'
 
 gmaps = googlemaps.Client(key=apikey)
 
@@ -181,6 +182,7 @@ def sort(addresses, gas_type):
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         future_list = {executor.submit(scrape, address, gas_type) for address in addresses}
+        print(future_list)
     
     for i in future_list:
         info.append(i.result())
