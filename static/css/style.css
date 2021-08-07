@@ -34,9 +34,14 @@ h2 {
     border-color: #fd5000c4;
     color: #fd5000c4;
     border-radius: 10px;
-    width: 12%;
+    width: auto;
     font-size: 24px;
-    white-space: normal;
+}
+
+.btn-custom .span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .btn-custom:hover {
@@ -44,13 +49,17 @@ h2 {
     color: white;
 }
 
-.wrapper, .wrapper-end {
+.wrapper, .wrapper-end, .wrapper-hidden, .wrapper-end-hidden {
     margin: 0 auto;
     background: white;
     border-radius: 20px;
     position: relative;
     width: 100%;
     padding-bottom: 1%;
+}
+
+.container#hidden {
+    display: none;
 }
 
 input {
@@ -109,36 +118,43 @@ input:focus {
     text-align: right;
 }
 
-.dropdown-item {
+.dropdown-item, .dropdown-item-hidden {
     color: #fd5000c4;
     font-size: 18px;
     white-space: normal;
 }
 
-.dropdown-item#autocomplete {
+.dropdown-item, .dropdown-item-hidden {
     border-radius: 10px;
+    background-color: white;
+    border: none;
 }
 
 .dropdown-item:hover {
-    background-color: #ececec;
+    background-color: #ececec !important;
 }
 
-.dropdown-item:active {
+.dropdown-item-hidden:hover {
+    background-color: #ececec !important;
+    color: black;
+}
+
+.dropdown-item:active, .dropdown-item-hidden:active {
     color: #fd5000c4;
     outline: none;
 }
 
-.results {
+.results, .results-end, .results-hidden, .results-end-hidden {
     padding: 0px;
 }
   
-.results ul {
+.results ul, .results-end ul, .results-hidden ul, .results-end-hidden ul {
     margin: 0;
     padding: 0;
     justify-content: right;
 }
 
-.results ul li {
+.results ul li, .results-end ul li, .results-hidden ul li, .results-end-hidden ul li {
     list-style: none;
     border-radius: 10px;
     opacity: 0;
@@ -151,47 +167,53 @@ input:focus {
     float: right;
 }
   
-.show .results ul li {
+.show .results ul li, .show .results-end ul li, .show .results-hidden ul li, .show .results-end-hidden ul li {
     opacity: 1;
     display: block;
 }
   
-.show .results {
+.show .results, .show .results-end, .show .results-hidden, .show .results-end-hidden {
     padding: 10px;
 }
-  
 
+@media only screen and (max-width: 768px) {
+    .container#show {
+        display: none;
+    }
 
-.results-end {
-    padding: 0px;
-}
-  
-.results-end ul {
-    margin: 0;
-    padding: 0;
-    justify-content: right;
-}
+    .container#hidden {
+        display: block;
+    }
 
-.results-end ul li {
-    list-style: none;
-    border-radius: 3px;
-    opacity: 0;
-    display: none;
-    padding: 8px 12px;
-    transition: all .5s linear;
-    color: #fd5000c4;
-    width: 60%;
-    margin: auto;
-    float: right;
-}
-  
-.show .results-end ul li {
-    opacity: 1;
-    display: block;
-}
-  
-.show .results-end {
-    padding: 10px;
+    input {
+        width: 75%;
+        margin: auto;
+    }
+
+    .btn-dropdown {
+        width: 40%;
+        margin: auto;
+    }
+
+    .dropdown-toggle {
+        width: 10%;
+        color: #fd5000c4;
+    }
+
+    .row {
+        padding-bottom: 4%;
+    }
+
+    .wrapper-hidden, .wrapper-end-hidden {
+        padding-bottom: 0%;
+    }
+
+    .no-gutters {
+        margin-right: 0;
+        margin-left: 0;
+        display: block;
+        padding-bottom: 8%;
+    }
 }
 
 .map {

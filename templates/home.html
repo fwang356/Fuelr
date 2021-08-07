@@ -17,13 +17,13 @@
         Enter Your Trip and Vehicle Info to Plan Your Gas Stops!
     </h2>
     <br>
-    <div class="container">
-        <div class="wrapper">
+    <div class="container" id='show'>
+        <div class="wrapper" id='wrapper'>
             <div class='row'>
                 <div class='col-6'>
                     <form class='form-group' id='left'>
                         <input class='search' type="text" placeholder="Starting Location" id='search' autocomplete="off">
-                        <div class="results">
+                        <div class="results" id='results'>
                             <ul>
                             </ul>
                         </div>
@@ -36,12 +36,12 @@
                 </div>
             </div>
         </div>
-        <div class='wrapper-end'>
+        <div class='wrapper-end' id='wrapper-end'>
             <div class='row'>
                 <div class='col-6'>
                     <form class='form-group' id='left'>
                         <input class='search-end' type="text" placeholder="Ending Location" id='search-end' autocomplete="off">
-                        <div class="results-end">
+                        <div class="results-end" id ='results-end'>
                             <ul>
                             </ul>
                         </div>
@@ -65,10 +65,45 @@
             </div>
         </div>
     </div>
-    <br>
+    <div class="container" id='hidden'>
+        <div class="wrapper-hidden" id="wrapper-hidden">
+            <div class='row'>
+                <input class='search-hidden' type="text" placeholder="Starting Location" id='search-hidden' autocomplete="off">
+                <div class="results-hidden" id="results-hidden">
+                    <ul>
+                    </ul>
+                </div>
+            </div>    
+        </div>
+        <div class='wrapper-end-hidden' id="wrapper-hidden">
+            <div class='row'>
+                <input class='search-end-hidden' type="text" placeholder="Ending Location" id='search-end-hidden' autocomplete="off">
+                <div class="results-end-hidden" id="results-end-hidden">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+            <div class='row'>
+                <input id="range-hidden" type="number" method='POST' placeholder="Max Range (Miles)" autocomplete="off">
+            </div>  
+            <div class='row no-gutters'>
+                <input class="btn btn-dropdown btn-lg" id="gas-type-hidden" placeholder="Gas Type" disabled>
+                </input>
+                <button type="button" class="btn btn-lg btn-dropdown dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item-hidden" type="button">Regular</button>
+                    <button class="dropdown-item-hidden" type="button">Midgrade</button>
+                    <button class="dropdown-item-hidden" type="button">Premium</button>
+                    <button class="dropdown-item-hidden" type="button">Diesel</button>
+                </div>
+            </div> 
+        </div>
+    </div>
     <form>
         <button type="button" class="btn btn-custom" id="calculate">
-            Calculate
+            <span>Calculate</span>
         </button>
     </form>
 </div>
