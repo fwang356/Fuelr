@@ -61,6 +61,7 @@ h2 {
 .container#hidden {
     display: none;
 }
+
 input {
     height: 50px;
     border-radius: 10px;
@@ -117,21 +118,28 @@ input:focus {
     text-align: right;
 }
 
-.dropdown-item {
+.dropdown-item, .dropdown-item-hidden {
     color: #fd5000c4;
     font-size: 18px;
     white-space: normal;
 }
 
-.dropdown-item#autocomplete {
+.dropdown-item, .dropdown-item-hidden {
     border-radius: 10px;
+    background-color: white;
+    border: none;
 }
 
 .dropdown-item:hover {
-    background-color: #ececec;
+    background-color: #ececec !important;
 }
 
-.dropdown-item:active {
+.dropdown-item-hidden:hover {
+    background-color: #ececec !important;
+    color: black;
+}
+
+.dropdown-item:active, .dropdown-item-hidden:active {
     color: #fd5000c4;
     outline: none;
 }
@@ -189,13 +197,14 @@ input:focus {
 
     .dropdown-toggle {
         width: 10%;
+        color: #fd5000c4;
     }
 
     .row {
         padding-bottom: 4%;
     }
 
-    .wrapper, .wrapper-end {
+    .wrapper-hidden, .wrapper-end-hidden {
         padding-bottom: 0%;
     }
 
