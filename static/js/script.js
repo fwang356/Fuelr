@@ -16,24 +16,6 @@ $(document).ready(function() {
     const resultsWrapper = document.querySelector('.results');
     const resultsWrapperEnd = document.querySelector('.results-end');
     const alertsContainer = document.getElementById('alerts-container');
-  
-    searchInput.addEventListener('keyup', () => {
-        let results = [];
-        let input = searchInput.value;
-
-        if (input.length > 0) {
-            $.post("/autocomplete", {"input": input})
-                .then(function (response) {
-                    results = response.filter((item) => {
-                        return item.toLowerCase().includes(input.toLowerCase());
-                    });
-
-                renderResults(results);
-            })
-        }
-        renderResults(results);
-    });
-
     
     searchInputEnd.addEventListener('keyup', () => {
         let results = [];
