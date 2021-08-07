@@ -203,3 +203,17 @@ input:focus {
 #directions-panel {
     margin-top: 10px;
   }
+  
+#alerts-container {
+    width: 100%;
+    top: 1%;
+}
+
+.alert {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin: auto;
+    width: fit-content;
+    color: black;
+    background-color: white;
+}

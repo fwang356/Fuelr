@@ -15,6 +15,7 @@ $(document).ready(function() {
     const searchWrapperEnd = document.querySelector('.wrapper-end')
     const resultsWrapper = document.querySelector('.results');
     const resultsWrapperEnd = document.querySelector('.results-end');
+    const alertsContainer = document.getElementById('alerts-container');
   
     searchInput.addEventListener('keyup', () => {
         let results = [];
@@ -98,18 +99,34 @@ $(document).ready(function() {
             });
         });
     }
+    
+    function alert(message) {
+        alertsContainer.innerHTML = 
+        `
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        ` +
+        message +
+        `
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `
+    }
 
     calculate.addEventListener('click', () => {
         if (document.getElementById("search").value == '' || document.getElementById("search-end").value == ''
             || document.getElementById("range").value == '' || document.getElementById("gas-type").firstChild == null) {
-            window.alert("Please fill out the forms!");
+            alert("Please fill out the forms!");
+        } else if (rangeInput.value < 150) {
+            alert("Are you sure you have the right car range?")
         } else {
             calculate.innerHTML = "Loading...";
             $.post("/gas-station", {"start": searchInput.value, "end": searchInputEnd.value, "range": rangeInput.value, "gas_type": gasType.value})
                 .then(function (response) {
                     console.log(response);
                     if (response == "You Don't Need to Fuel Up for this Trip") {
-                        window.alert("You Don't Need to Fuel Up for this Trip!");
+                        alert("You don't need to fuel up for this trip!")
                         calculate.innerHTML = "Calculate";
                     } else {
                         calculate.innerHTML = "Calculate";
