@@ -18,9 +18,9 @@
     </h2>
     <br>
     <div class="container" id='show'>
-        <div class="wrapper" id='wrapper'>
-            <div class='row'>
-                <div class='col-6'>
+        <div class='row'>
+            <div class='col-md-6'>
+                <div class="wrapper" id="wrapper">
                     <form class='form-group' id='left'>
                         <input class='search' type="text" placeholder="Starting Location" id='search' autocomplete="off">
                         <div class="results" id='results'>
@@ -29,17 +29,10 @@
                         </div>
                     </form>
                 </div>
-                <div class='col-6'>
-                    <form class='form-group'>
-                        <input id="range" type="number" method='POST' placeholder="Max Range (Miles)" autocomplete="off">
-                    </form>
-                </div>
             </div>
-        </div>
-        <div class='wrapper-end' id='wrapper-end'>
-            <div class='row'>
-                <div class='col-6'>
-                    <form class='form-group' id='left'>
+            <div class='col-md-6'>
+                <div class='wrapper-end' id='wrapper-end'>
+                    <form class='form-group'>
                         <input class='search-end' type="text" placeholder="Ending Location" id='search-end' autocomplete="off">
                         <div class="results-end" id ='results-end'>
                             <ul>
@@ -47,7 +40,15 @@
                         </div>
                     </form>
                 </div>
-                <div class='col-6'>
+            </div>
+        </div>
+            <div class='row'>
+                <div class='col-md-6'>
+                    <form class='form-group' id='left'>
+                        <input id="range" type="number" method='POST' placeholder="Max Range (Miles)" autocomplete="off">
+                    </form>
+                </div>
+                <div class='col-md-6'>
                     <form class='form-group'>
                         <input class="btn btn-dropdown btn-lg" id="gas-type" placeholder="Gas Type" disabled>
                         </input>
@@ -63,43 +64,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container" id='hidden'>
-        <div class="wrapper-hidden" id="wrapper-hidden">
-            <div class='row'>
-                <input class='search-hidden' type="text" placeholder="Starting Location" id='search-hidden' autocomplete="off">
-                <div class="results-hidden" id="results-hidden">
-                    <ul>
-                    </ul>
-                </div>
-            </div>    
-        </div>
-        <div class='wrapper-end-hidden' id="wrapper-hidden">
-            <div class='row'>
-                <input class='search-end-hidden' type="text" placeholder="Ending Location" id='search-end-hidden' autocomplete="off">
-                <div class="results-end-hidden" id="results-end-hidden">
-                    <ul>
-                    </ul>
-                </div>
-            </div>
-            <div class='row'>
-                <input id="range-hidden" type="number" method='POST' placeholder="Max Range (Miles)" autocomplete="off">
-            </div>  
-            <div class='row no-gutters'>
-                <input class="btn btn-dropdown btn-lg" id="gas-type-hidden" placeholder="Gas Type" disabled>
-                </input>
-                <button type="button" class="btn btn-lg btn-dropdown dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item-hidden" type="button">Regular</button>
-                    <button class="dropdown-item-hidden" type="button">Midgrade</button>
-                    <button class="dropdown-item-hidden" type="button">Premium</button>
-                    <button class="dropdown-item-hidden" type="button">Diesel</button>
-                </div>
-            </div> 
-        </div>
     </div>
     <form>
         <button type="button" class="btn btn-custom" id="calculate">
@@ -114,6 +78,8 @@
     <div class="map" id="map"></div>
     <div id="directions"></div>
 </div>
+<br>
+<br>
 
 <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNMEWQATMF1WX6nNvflDEYVpiw_LaWWq8&callback=initMap&libraries=&v=weekly"
