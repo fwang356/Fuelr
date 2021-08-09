@@ -151,24 +151,30 @@ def gasbuddy_scrape(address, link, gas_type):
     page = requests.get(link, headers={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62'})
     soup = BeautifulSoup(page.content, 'html.parser')
     
+    # Filter for the divs that contain each type of gas and their prices
     price_elements = soup.find('div', class_='carousel__scrollContainer___hDjMb').children
 
-    price = None
-
+    # Iterate through every gas type provided
     for element in price_elements:
         type = element.find('span', class_='text__fluid___1X7fO').string
 
         if type == gas_type:
+        
+            # Try to find a price; if it fails, invalidate the station being returned
             try:
                 price = float(element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string.strip('$'))
             except ValueError:
                 price = 1000
-
-        if type == gas_type:
+            
+            # Try to find a rating; if it fails, invalidate the station being returned
             try:
                 rating = soup.find('span', class_='ReviewPanel-module__averageRating___3KmW2').string 
             except AttributeError:
                 rating = -500
+        # If the desired gas type is not available, invalidate the station being returned
+        else:
+            price = 1000
+            rating = -500
 
     return {'address': address, 'rating': rating, 'price': price}
 
@@ -178,8 +184,8 @@ def scrape(address, gas_type):
     info = []
     link = google_scrape(address)
     if 'https://www.gasbuddy.com/station/' in link:
-            price = gasbuddy_scrape(address, link, gas_type)
-            info.append(price)
+            station_info = gasbuddy_scrape(address, link, gas_type)
+            info.append(station_info)
     return info
 
 
