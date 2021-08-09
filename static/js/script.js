@@ -6,6 +6,14 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".dropdown-menu .dropdown-item-hidden").click(function(){
+        $(".btn-dropdown:first-child").text($(this).text());
+        $(".btn-dropdown:first-child").val($(this).text());
+        $(".btn-dropdown:first-child").css('color', '#fd5000c4');
+    });
+});
+
 $(document).ready(function() {
     container = document.getElementById('show');
     var comp = container.currentStyle || getComputedStyle(container, null);
@@ -121,25 +129,86 @@ $(document).ready(function() {
 
         calculate.addEventListener('click', () => {
             if (document.getElementById("search").value == '' || document.getElementById("search-end").value == ''
-                || document.getElementById("range").value == '' || document.getElementById("gas-type").firstChild == null) {
+                || document.getElementById("range").value == ''|| document.getElementById("gas-type").firstChild == null) {
                 alert("Please fill out the forms!");
+            } else if (document.getElementById("range").value < 150) {
+                alert("Are you sure you have the correct car range?")
             } else {
                 calculate.innerHTML = "Loading...";
                 $.post("/gas-station", {"start": searchInput.value, "end": searchInputEnd.value, "range": rangeInput.value, "gas_type": gasType.value})
                     .then(function (response) {
-                        console.log(response);
                         if (response == "You Don't Need to Fuel Up for this Trip") {
                             alert("You Don't Need to Fuel Up for this Trip!");
                             calculate.innerHTML = "Calculate";
                         } else {
+                            console.log(response);
                             calculate.innerHTML = "Calculate";
                             initMap(response);
                         }
                     })
             }
             
-        });
+        })
 
+        function initMap(response) {
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            const gas_stations = response;
+    
+            document.getElementById("map").style.height = '700px';
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 6,
+            });
+            directionsRenderer.setMap(map);
+    
+            for (let i = 0; i < gas_stations.length; i++) {
+                const marker = new google.maps.Marker({
+                    position: gas_stations[i]['position'],
+                    map: map,
+                })
+    
+                const contentString = 
+                    '<div id="content">' +
+                    '<div id="siteNotice">' +
+                    "</div>" +
+                    '<h1 id="firstHeading" class="firstHeading" style="font-size: 18px;">' + gas_stations[i]['station'] + '</h1>' +
+                    '<div id="bodyContent">' +
+                    "<ul>" + 
+                    "<li>Price: " + gas_stations[i]['price'] + "</li>" +
+                    "<li>Rating: " + gas_stations[i]['rating'] + "</li>"
+                    "</div>" +
+                    "</div>";
+    
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                });
+    
+                marker.addListener('click', () => {
+                    infowindow.open({
+                        anchor: marker,
+                        map,
+                        shouldFocus: false,
+                      });
+                })
+            }
+    
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        }
+    
+        function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+            directionsService
+            .route({
+                origin: searchInput.value,
+                destination: searchInputEnd.value,
+                travelMode: google.maps.TravelMode.DRIVING,
+            })
+            .then((response) => {
+                directionsRenderer.setDirections(response);
+                const summaryPanel = document.getElementById("directions");
+                summaryPanel.innerHTML = "";
+            })
+        }
+        
     } else {
         const searchInput = document.getElementById('search-hidden');
         const searchInputEnd = document.getElementById('search-end-hidden');
@@ -224,7 +293,7 @@ $(document).ready(function() {
             resultsWrapperEnd.innerHTML = `<ul>${content}</ul>`;
     
             $(function(){
-                $(".results-hidden-end ul li .dropdown-item-hidden#autocomplete").click(function(){
+                $(".results-end-hidden ul li .dropdown-item-hidden#autocomplete").click(function(){
                     $(".search-end-hidden:first-child").text($(this).text());
                     $(".search-end-hidden:first-child").val($(this).text());
                     $(".search-end-hidden:first-child").css('color', '#fd5000c4');
@@ -232,102 +301,101 @@ $(document).ready(function() {
                 });
             });
         }
-    }
-    
-    function alert(message) {
-        alertsContainer.innerHTML = 
-        `
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        ` +
-        message +
-        `
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        `
-    }
-
-    calculate.addEventListener('click', () => {
-        if (document.getElementById("search").value == '' || document.getElementById("search-end").value == ''
-            || document.getElementById("range").value == '' || document.getElementById("gas-type").firstChild == null) {
-            alert("Please fill out the forms!");
-        } else if (rangeInput.value < 150) {
-            alert("Are you sure you have the right car range?")
-        } else {
-            calculate.innerHTML = "Loading...";
-            $.post("/gas-station", {"start": searchInput.value, "end": searchInputEnd.value, "range": rangeInput.value, "gas_type": gasType.value})
-                .then(function (response) {
-                    console.log(response);
-                    if (response == "You Don't Need to Fuel Up for this Trip") {
-                        alert("You don't need to fuel up for this trip!")
-                        calculate.innerHTML = "Calculate";
-                    } else {
-                        calculate.innerHTML = "Calculate";
-                        initMap(response);
-                    }
-                })
+ 
+        function alert(message) {
+            alertsContainer.innerHTML = 
+            `
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            ` +
+            message +
+            `
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            `
         }
-    })
+
+
+        calculate.addEventListener('click', () => {
+            if (document.getElementById("search-hidden").value == '' || document.getElementById("search-end-hidden").value == ''
+                || document.getElementById("range-hidden").value == '' || document.getElementById("gas-type-hidden").firstChild == null) {
+                alert("Please fill out the forms!");
+            } else if (document.getElementById("range-hidden").value < 150) {
+                alert("Are you sure you have the correct car range?")
+            } else {
+                calculate.innerHTML = "Loading...";
+                $.post("/gas-station", {"start": searchInput.value, "end": searchInputEnd.value, "range": rangeInput.value, "gas_type": gasType.value})
+                    .then(function (response) {
+                        if (response == "You don't need to fuel up for this trip!") {
+                            alert("You don't need to fuel up for this trip!");
+                            calculate.innerHTML = "Calculate";
+                        } else {
+                            console.log(response);
+                            calculate.innerHTML = "Calculate";
+                            initMap(response);
+                        }
+                    })
+            }
+            function initMap(response) {
+                const directionsService = new google.maps.DirectionsService();
+                const directionsRenderer = new google.maps.DirectionsRenderer();
+                const gas_stations = response;
+         
+                document.getElementById("map").style.height = '700px';
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 6,
+                });
+                directionsRenderer.setMap(map);
         
-    
+                for (let i = 0; i < gas_stations.length; i++) {
+                    const marker = new google.maps.Marker({
+                        position: gas_stations[i]['position'],
+                        map: map,
+                    })
+         
+                    const contentString = 
+                        '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        "</div>" +
+                        '<h1 id="firstHeading" class="firstHeading" style="font-size: 18px;">' + gas_stations[i]['station'] + '</h1>' +
+                        '<div id="bodyContent">' +
+                        "<ul>" + 
+                        "<li>Price: " + gas_stations[i]['price'] + "</li>" +
+                        "<li>Rating: " + gas_stations[i]['rating'] + "</li>"
+                        "</div>" +
+                        "</div>";
+            
+                    const infowindow = new google.maps.InfoWindow({
+                        content: contentString,
+                    });
+            
+                    marker.addListener('click', () => {
+                        infowindow.open({
+                            anchor: marker,
+                            map,
+                            shouldFocus: false,
+                            });
+                    })
+                }
+            
+                calculateAndDisplayRoute(directionsService, directionsRenderer);
+            }
 
-    function initMap(response) {
-        const directionsService = new google.maps.DirectionsService();
-        const directionsRenderer = new google.maps.DirectionsRenderer();
-        const gas_stations = response;
 
-        document.getElementById("map").style.height = '700px';
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 6,
-        });
-        directionsRenderer.setMap(map);
-
-        for (let i = 0; i < gas_stations.length; i++) {
-            const marker = new google.maps.Marker({
-                position: gas_stations[i]['position'],
-                map: map,
-            })
-
-            const contentString = 
-                '<div id="content">' +
-                '<div id="siteNotice">' +
-                "</div>" +
-                '<h1 id="firstHeading" class="firstHeading" style="font-size: 18px;">' + gas_stations[i]['station'] + '</h1>' +
-                '<div id="bodyContent">' +
-                "<ul>" + 
-                "<li>Price: " + gas_stations[i]['price'] + "</li>" +
-                "<li>Rating: " + gas_stations[i]['rating'] + "</li>"
-                "</div>" +
-                "</div>";
-
-            const infowindow = new google.maps.InfoWindow({
-                content: contentString,
-            });
-
-            marker.addListener('click', () => {
-                infowindow.open({
-                    anchor: marker,
-                    map,
-                    shouldFocus: false,
-                  });
-            })
-        }
-
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
-    }
-
-    function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-        directionsService
-        .route({
-            origin: searchInput.value,
-            destination: searchInputEnd.value,
-            travelMode: google.maps.TravelMode.DRIVING,
-        })
-        .then((response) => {
-            directionsRenderer.setDirections(response);
-            const summaryPanel = document.getElementById("directions");
-            summaryPanel.innerHTML = "";
+            function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+                directionsService
+                .route({
+                    origin: searchInput.value,
+                    destination: searchInputEnd.value,
+                    travelMode: google.maps.TravelMode.DRIVING,
+                })
+                .then((response) => {
+                    directionsRenderer.setDirections(response);
+                    const summaryPanel = document.getElementById("directions");
+                    summaryPanel.innerHTML = "";
+                })
+            }
         })
     }
 })
