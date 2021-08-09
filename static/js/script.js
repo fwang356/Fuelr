@@ -204,6 +204,8 @@ $(document).ready(function() {
             })
             .then((response) => {
                 directionsRenderer.setDirections(response);
+                alertsContainer.innerHTML = "";
+                // TODO: is this needed?
                 const summaryPanel = document.getElementById("directions");
                 summaryPanel.innerHTML = "";
             })
@@ -218,7 +220,8 @@ $(document).ready(function() {
         const searchWrapperEnd = document.querySelector('.wrapper-end-hidden')
         const resultsWrapper = document.querySelector('.results-hidden');
         const resultsWrapperEnd = document.querySelector('.results-end-hidden');
-    
+        const alertsContainer = document.getElementById('alerts-container');
+
         searchInput.addEventListener('keyup', () => {
             let results = [];
             let input = searchInput.value;
@@ -392,6 +395,8 @@ $(document).ready(function() {
                 })
                 .then((response) => {
                     directionsRenderer.setDirections(response);
+                    alertsContainer.innerHTML = "";
+                    // TODO: is this needed?
                     const summaryPanel = document.getElementById("directions");
                     summaryPanel.innerHTML = "";
                 })
