@@ -134,14 +134,56 @@ $(document).ready(function() {
             } else {
                 alert("Finding the best gas stops. This may take a while.")
                 calculate.innerHTML = "Loading...";
+                /*
                 $.post("/gas-station", {"start": searchInput.value, "end": searchInputEnd.value, "range": rangeInput.value, "gas_type": gasType.value})
                     .then(function (response) {
                         calculate.innerHTML = "Calculate";
                         initMap(response);
                     })
+                */
+                data = {
+                    'start': searchInput.value,
+                    'end': searchInputEnd.value,
+                    'range':rangeInput.value,
+                    'gas_type': gasType.value
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/gas-station',
+                    data: data,
+                    success: function(response, status, request) {
+                        console.log(response);
+                        status_url = request.getResponseHeader('Location');
+                        update_progress(status_url, response);
+                    },
+                    error: function() {
+                        alert('Unexpected error');
+                    }
+                });
             }
             
         })
+
+        function check_state(status_url, repsonse) {
+            // send GET request to status URL
+            $.getJSON(status_url, function(data) {
+                if (data['state'] != 'PENDING' && data['state'] != 'FAILURE') {
+                    if ('result' in data) {
+                        // show result
+                        initMap(response);
+                    }
+                    else {
+                        // something unexpected happened
+                        $(status_div.childNodes[3]).text('Result: ' + data['state']);
+                    }
+                }
+                else {
+                    setTimeout(function() {
+                        update_progress(status_url, nanobar, status_div);
+                    }, 10000);
+                }
+            });
+        }
 
         function initMap(response) {
             const directionsService = new google.maps.DirectionsService();
