@@ -115,7 +115,7 @@ def get_gas_stations(point, radius):
         radius = radius * 1.5
         gas_stations = gmaps.places_nearby(point, radius, type='gas_station')['results']
 
-    gas_stations = gas_stations[0:5]
+    gas_stations = gas_stations[0:10]
 
     for i in gas_stations:
         addresses.append(i['vicinity'])
@@ -163,7 +163,12 @@ def gasbuddy_scrape(address, link, gas_type):
         
             # Try to find a price; if it fails, invalidate the station being returned
             try:
-                price = float(element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string.strip('$'))
+                price_element = element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string
+                if '$' in price_element:
+                    price = float(element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string.strip('$'))
+                elif '¢' in price_element:
+                    price = float(element.find('span', class_='FuelTypePriceDisplay-module__price___3iizb').string.strip('¢'))
+                    price = round(price / 26.4172, 2)
             except ValueError:
                 price = 1000
             
@@ -210,6 +215,8 @@ def sort(addresses, gas_type):
             stations.append(item)
     
     sorted_stations = sorted(stations, key= lambda k: k['index'])
+    if sorted_stations[0]['price'] == '$1000':
+        sorted_stations = sorted(stations, key= lambda k: float(k['rating']))
     return sorted_stations
 
 

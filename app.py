@@ -36,7 +36,6 @@ def gas_station():
             gas_stations.append(main.sort(address, gas_type))
  
         results = []
- 
         for stop in gas_stations:
             results.append(stop[0])
  
