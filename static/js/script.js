@@ -166,7 +166,7 @@ $(document).ready(function() {
                     '<h1 id="firstHeading" class="firstHeading" style="font-size: 18px;">' + gas_stations[i]['station'] + '</h1>' +
                     '<div id="bodyContent">' +
                     "<ul>" + 
-                    "<li>Price: " + gas_stations[i]['price'] + "</li>" +
+                    "<li>Price: " + gas_stations[i]['price'] + "per Gallon </li>" +
                     "<li>Rating: " + gas_stations[i]['rating'] + "</li>"
                     "</div>" +
                     "</div>";

@@ -150,6 +150,8 @@ def google_scrape(address):
 def gasbuddy_scrape(address, link, gas_type):
     page = requests.get(link, headers={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62'})
     soup = BeautifulSoup(page.content, 'html.parser')
+    price = None
+    rating = None
     
     # Filter for the divs that contain each type of gas and their prices
     price_elements = soup.find('div', class_='carousel__scrollContainer___hDjMb').children
@@ -171,10 +173,11 @@ def gasbuddy_scrape(address, link, gas_type):
                 rating = soup.find('span', class_='ReviewPanel-module__averageRating___3KmW2').string 
             except AttributeError:
                 rating = -500
-        # If the desired gas type is not available, invalidate the station being returned
-        else:
-            price = 1000
-            rating = -500
+    
+    # If the desired gas type is not available, invalidate the station being returned
+    if price is None or rating is None:
+        price = 1000
+        rating = -500
 
     return {'address': address, 'rating': rating, 'price': price}
 
