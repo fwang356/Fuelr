@@ -6,7 +6,6 @@ import os
 import concurrent.futures
 import time
 
-apikey = os.getenv('key')
 apikey = 'AIzaSyBNMEWQATMF1WX6nNvflDEYVpiw_LaWWq8'
 
 gmaps = googlemaps.Client(key=apikey)
