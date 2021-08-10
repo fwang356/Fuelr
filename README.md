@@ -1,4 +1,4 @@
-# Fuelr | [https://fuelr.herokuapp.com/](https://fuelr.herokuapp.com/)
+# Fuelr
 ![screenshot](static/fuelr.PNG)
 
-Plan the best gas stops for your trip.
+Clone this repo to plan the best gas stops for your trip!
