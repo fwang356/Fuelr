@@ -136,7 +136,6 @@ $(document).ready(function() {
                 calculate.innerHTML = "Loading...";
                 $.post("/gas-station", {"start": searchInput.value, "end": searchInputEnd.value, "range": rangeInput.value, "gas_type": gasType.value})
                     .then(function (response) {
-                        console.log(response);
                         calculate.innerHTML = "Calculate";
                         initMap(response);
                     })
