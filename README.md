@@ -6,6 +6,14 @@ Clone this repository:
 ```
 git clone https://github.com/fwang356/Fuelr.git
 ```
+Create a virtual environment:
+```
+virtualenv venv
+```
+Activate the environment:
+```
+venv/Scripts/activate
+```
 Install the dependencies:
 ```
 pip install -r requirements.txt
